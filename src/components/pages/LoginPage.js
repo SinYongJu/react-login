@@ -6,6 +6,7 @@ const contents = {
   header: <H2>Login</H2>,
   body: <div>Login</div>,
 }
+
 function LoginPage(props) {
   return (
     <React.Fragment>
