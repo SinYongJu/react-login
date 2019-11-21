@@ -1,20 +1,30 @@
 {
-  "name": "react-jest-setiing",
+  "name": "react-login",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
-    "react-scripts": "3.2.0"
+    "react-scripts": "3.2.0",
+    "react-router-dom": "^5.1.2"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "storybook": "start-storybook -p 9999"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": [
+      "react-app",
+      "prettier"
+    ],
+    "rules": {
+      "semi": [
+        "error"
+      ]
+    }
   },
   "browserslist": {
     "production": [
@@ -27,5 +37,21 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "eslint": "^6.6.0",
+    "eslint-config-prettier": "^6.7.0",
+    "eslint-plugin-react": "^7.16.0",
+    "node-sass": "^4.13.0",
+    "@storybook/addon-a11y": "^5.2.5",
+    "@storybook/addon-backgrounds": "^5.2.5",
+    "@storybook/addon-info": "^5.2.5",
+    "@storybook/addon-knobs": "^5.2.5",
+    "@storybook/addon-links": "^5.2.5",
+    "@storybook/addon-notes": "^5.2.5",
+    "@storybook/addon-storysource": "^5.2.5",
+    "@storybook/addon-actions": "^5.2.5",
+    "@storybook/react": "^5.2.5",
+    "json-server": "^0.15.1"
   }
 }
