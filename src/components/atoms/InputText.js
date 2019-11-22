@@ -1,8 +1,17 @@
 import React from 'react'
 
 function InputText(props) {
-  const { id, value, onChange } = props
-  return <input type="text" id={id} value={value} onChange={onChange} />
+  const { id, value, name, onChange } = props
+  return (
+    <input
+      type="text"
+      id={id}
+      className="inp_g"
+      name={name}
+      value={value}
+      onChange={onChange}
+    />
+  )
 }
 
 InputText.defaultProps = {
