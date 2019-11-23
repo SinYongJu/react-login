@@ -2,24 +2,6 @@ import React, { useState, useEffect } from 'react'
 import InputInfo from '../molecules/InputInfo'
 import Button from '../atoms/Button'
 
-const inputTextsList = [
-  {
-    name: 'userId',
-    title: 'ID',
-    value: '',
-  },
-  {
-    name: 'password',
-    title: 'password',
-    value: '',
-  },
-  {
-    name: 'email',
-    title: 'email',
-    value: '',
-  },
-]
-
 const validateSpace = value => {
   const spaceRegex = /\s/
   return spaceRegex.test(value)
@@ -30,31 +12,42 @@ const validateSpecial = value => {
   return specailRegex.test(value)
 }
 
-/**
- *
- * @param {Array} valueArray
- */
-
 const LOGIN_MODE = {
   INIT: 'INIT',
   INSERTING: 'INSERTING',
 }
 
-const VALUE_LENGTH = 3
+const VALUE_MIN_LENGTH_8 = 7
+/**
+ *
+ * @param {Array} array
+ * @param {string} compareProperty
+ * @param {number} minValueLength
+ *
+ * in Array.reduce , compareProperty는 curr items's 대조군의 property
+ * 이메일, 문장 작성 같은 예외 상황 애들을 처리 할 수 있도록
+ * 개선이 필요하다
+ */
 const validateInputInfo = (array, compareProperty, minValueLength) => {
   const isValid = array.reduce((prev, curr) => {
     let isValid =
       !validateSpace(curr[compareProperty]) &&
       !validateSpecial(curr[compareProperty]) &&
-      curr[compareProperty].length > 3
+      curr[compareProperty].length > minValueLength
     return prev && isValid
   }, true)
   return isValid
 }
 
+const VALUE_PROPERTY = 'value'
 function LoginForm(props) {
-  const { onLoginSubmit, onLoginCancel } = props
-
+  const {
+    inputTextsList,
+    onLoginSubmit,
+    onLoginCancel,
+    onLoginSignUp,
+    status,
+  } = props
   const [inputFormList, inputFormSetList] = useState({
     inputList: [],
     isValid: true,
@@ -63,12 +56,12 @@ function LoginForm(props) {
 
   useEffect(() => {
     inputFormSetList(ctx => ({ ...ctx, inputList: inputTextsList }))
-  }, [])
+  }, [inputTextsList])
 
   const validate = array => {
     inputFormSetList(ctx => ({
       ...ctx,
-      isValid: validateInputInfo(array, 'value', VALUE_LENGTH),
+      isValid: validateInputInfo(array, VALUE_PROPERTY, VALUE_MIN_LENGTH_8),
     }))
   }
   const onChange = e => {
@@ -90,9 +83,12 @@ function LoginForm(props) {
     }
     return true
   }
-
+  const onClickLogin = () => {
+    onLoginSubmit(inputFormList.isValid, inputFormList.inputList)
+  }
   return (
-    <div>
+    <div className={'LoginForm'}>
+      status : {status}
       {inputFormList.inputList &&
         inputFormList.inputList.map((input, index) => {
           let id = input.name + 'Input'
@@ -105,10 +101,11 @@ function LoginForm(props) {
             ></InputInfo>
           )
         })}
-      <Button isDisabled={buttonIsDisabled()} onClick={onLoginSubmit}>
+      <Button isDisabled={buttonIsDisabled()} onClick={onClickLogin}>
         login
       </Button>
-      <Button onClick={onLoginCancel}>sign up</Button>
+      <Button onClick={onLoginSignUp}>sign up</Button>
+      <Button onClick={onLoginCancel}>Cancel</Button>
     </div>
   )
 }
