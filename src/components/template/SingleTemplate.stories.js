@@ -41,10 +41,7 @@ stories.addDecorator(SingleTemplateDecorator)
 stories.addDecorator(withKnobs)
 
 // 질문! 처음 페이지에 띄울 때 default button이 표현되지 않는다.
-stories.add('empty', () => <SingleTemplate />, {
-  notes: PropsNotesTable(SingleTemplate),
-})
 stories.add('default', () => <SingleTemplate />, {
   notes: PropsNotesTable(SingleTemplate),
-  SingleTemplateInfo: { ...SingleTemplateInfo },
+  // SingleTemplateInfo: { ...SingleTemplateInfo },
 })

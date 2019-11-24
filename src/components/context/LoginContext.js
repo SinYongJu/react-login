@@ -5,7 +5,7 @@ const LOGIN_AUTH = {
   USER: 'user',
   ADMIN: 'admin',
 }
-const LOGIN_STATUS = {
+export const LOGIN_STATUS = {
   PENDING: 'pending',
   SUCCESS: 'success',
   FAIL: 'fail',

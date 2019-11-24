@@ -2,6 +2,28 @@ import React, { useState, useEffect } from 'react'
 import InputInfo from '../molecules/InputInfo'
 import Button from '../atoms/Button'
 
+const inputTextsList = [
+  {
+    name: 'userId',
+    title: 'id',
+    value: '12341234',
+  },
+  {
+    name: 'password',
+    title: 'password',
+    value: '12341234',
+  },
+  {
+    name: 'email',
+    title: 'email',
+    value: '12341234',
+  },
+]
+
+/**
+ *
+ * vlidation의 분리를 생각해보자!
+ */
 const validateSpace = value => {
   const spaceRegex = /\s/
   return spaceRegex.test(value)
@@ -41,22 +63,12 @@ const validateInputInfo = (array, compareProperty, minValueLength) => {
 
 const VALUE_PROPERTY = 'value'
 function LoginForm(props) {
-  const {
-    inputTextsList,
-    onLoginSubmit,
-    onLoginCancel,
-    onLoginSignUp,
-    status,
-  } = props
+  const { onLoginSubmit, onLoginCancel, onLoginSignUp, status } = props
   const [inputFormList, inputFormSetList] = useState({
-    inputList: [],
+    inputList: inputTextsList,
     isValid: true,
     mode: LOGIN_MODE.INIT,
   })
-
-  useEffect(() => {
-    inputFormSetList(ctx => ({ ...ctx, inputList: inputTextsList }))
-  }, [inputTextsList])
 
   const validate = array => {
     inputFormSetList(ctx => ({
@@ -64,6 +76,9 @@ function LoginForm(props) {
       isValid: validateInputInfo(array, VALUE_PROPERTY, VALUE_MIN_LENGTH_8),
     }))
   }
+  useEffect(() => {
+    validate(inputFormList.inputList)
+  }, [inputFormList.inputList, inputFormList.mode])
   const onChange = e => {
     let value = e.target.value
     let name = e.target.name
@@ -76,12 +91,6 @@ function LoginForm(props) {
       validate(ctx.inputList)
       return { ...ctx }
     })
-  }
-  const buttonIsDisabled = () => {
-    if (inputFormList.mode !== LOGIN_MODE.INIT) {
-      return !inputFormList.isValid
-    }
-    return true
   }
   const onClickLogin = () => {
     onLoginSubmit(inputFormList.isValid, inputFormList.inputList)
@@ -101,7 +110,7 @@ function LoginForm(props) {
             ></InputInfo>
           )
         })}
-      <Button isDisabled={buttonIsDisabled()} onClick={onClickLogin}>
+      <Button isDisabled={!inputFormList.isValid} onClick={onClickLogin}>
         login
       </Button>
       <Button onClick={onLoginSignUp}>sign up</Button>

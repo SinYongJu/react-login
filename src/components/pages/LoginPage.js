@@ -5,24 +5,6 @@ import LoginForm from '../organisms/LoginForm'
 import { LoginContext } from '../context/LoginContext'
 import { useHistory } from 'react-router-dom'
 
-const inputTextsList = [
-  {
-    name: 'userId',
-    title: 'id',
-    value: '12341234',
-  },
-  {
-    name: 'password',
-    title: 'password',
-    value: '12341234',
-  },
-  {
-    name: 'email',
-    title: 'email',
-    value: '12341234',
-  },
-]
-
 function LoginPage(props) {
   const { login, getLoginStatus } = useContext(LoginContext)
   const history = useHistory()
@@ -42,7 +24,6 @@ function LoginPage(props) {
     header: <H2>Login</H2>,
     body: (
       <LoginForm
-        inputTextsList={inputTextsList}
         status={getLoginStatus()}
         onLoginSubmit={onLoginSubmit}
         onLoginCancel={onLoginCancel}

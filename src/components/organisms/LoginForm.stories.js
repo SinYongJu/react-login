@@ -30,8 +30,14 @@ stories.addParameters(LoginFormInfo)
 stories.addDecorator(LoginFormDecorator)
 stories.addDecorator(withKnobs)
 
+const actions = {
+  onLoginSubmit: action('onLoginSubmit', () => console.log('onLoginSubmit')),
+  onLoginCancel: action('onLoginCancel', () => console.log('onLoginCancel')),
+  onLoginSignUp: action('onLoginCancel', () => console.log('onLoginCancel')),
+}
+
 // 질문! 처음 페이지에 띄울 때 default button이 표현되지 않는다.
-stories.add('Default', () => <LoginForm />, {
+stories.add('Default', () => <LoginForm {...actions} />, {
   notes: '',
   // PropsNotesTable(LoginForm),
 })

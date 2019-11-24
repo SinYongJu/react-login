@@ -11,4 +11,9 @@ function InputInfo(props) {
   )
 }
 
+InputInfo.defaultProps = {
+  id: 'myId',
+  title: 'myTitle',
+}
+
 export default InputInfo

@@ -7,17 +7,17 @@ import {
   text,
   boolean,
 } from '@storybook/addon-knobs'
-import InputInfo from './InputInfo'
+import SearchBox from './SearchBox'
 import { action } from '@storybook/addon-actions'
 import PropsNotesTable from '../../util/PropsNotesTable'
 
-const stories = storiesOf('Components|molecules/InputInfo', module)
+const stories = storiesOf('Components|molecules/SearchBox', module)
 
 // 아래에서 stories에 직접 추가할 데코레이터
-const InputInfoDecorator = story => (
+const SearchBoxDecorator = story => (
   <div style={{ margin: '10px', width: '300px' }}>{story()}</div>
 )
-stories.addDecorator(InputInfoDecorator)
+stories.addDecorator(SearchBoxDecorator)
 stories.addDecorator(withKnobs)
 
 const actions = {
@@ -30,12 +30,12 @@ const actions = {
 stories.add(
   'Default',
   () => (
-    <InputInfo
+    <SearchBox
       id={text('id', 'insert your id')}
       value={text('value', 'insert your value')}
       title={text('title', 'insert your title')}
       onChange={actions.onChange}
-    ></InputInfo>
+    ></SearchBox>
   ),
-  { notes: PropsNotesTable(InputInfo) },
+  { notes: PropsNotesTable(SearchBox) },
 )
