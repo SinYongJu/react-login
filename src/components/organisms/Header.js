@@ -24,6 +24,9 @@ function Header(props) {
         <li>
           <Link to="/search">search</Link>
         </li>
+        <li>
+          <Link to="/edit">Edit</Link>
+        </li>
       </ul>
       <>
         {headerStatus.status ? (

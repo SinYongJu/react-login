@@ -1,13 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-// import './SeachResult.scss'
-// import {
-//   SEARCH_PENDING,
-//   SEARCH_INIT,
-//   SEARCH_RESULT
-// } from "../../constants/search_api";
 import { Link } from 'react-router-dom'
-import { SEARCH_STATUS } from '../context/SearchContext'
+import { SEARCH_STATUS } from '../../core/constants/search/api_constants'
 
 const SearchListItem = props => {
   const {

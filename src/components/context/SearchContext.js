@@ -1,11 +1,6 @@
 import React, { useState, createContext } from 'react'
 import { getApiSearchList } from '../../api/search_api'
-
-export const SEARCH_STATUS = {
-  PENDING: 'pending',
-  INIT: 'init',
-  RESULT: 'result',
-}
+import { SEARCH_STATUS } from '../../core/constants/search/api_constants'
 
 const SearchContext = createContext(null)
 

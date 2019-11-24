@@ -14,7 +14,9 @@ import { withContexts } from '@storybook/addon-contexts/react'
 import PropsNotesTable from '../../util/PropsNotesTable'
 import AppRouter from '../../core/router/AppRouter'
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
-import { LoginProvider, LOGIN_STATUS } from '../context/LoginContext'
+import { LoginProvider } from '../context/LoginContext'
+import { LOGIN_STATUS } from '../../core/constants/login/constants'
+
 // import { LoginProvider, LoginContext } from '../context/LoginContext'
 
 const stories = storiesOf('Components|Organism/Header', module)

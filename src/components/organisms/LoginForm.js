@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import InputInfo from '../molecules/InputInfo'
 import Button from '../atoms/Button'
+import { validateInputInfo } from '../../util/validate'
 
 const inputTextsList = [
   {
@@ -20,48 +21,13 @@ const inputTextsList = [
   },
 ]
 
-/**
- *
- * vlidation의 분리를 생각해보자!
- */
-const validateSpace = value => {
-  const spaceRegex = /\s/
-  return spaceRegex.test(value)
-}
-
-const validateSpecial = value => {
-  const specailRegex = /[`~!@#$%^&*|\\'";:/?]/gi
-  return specailRegex.test(value)
-}
-
+const VALUE_MIN_LENGTH_8 = 7
+const VALUE_PROPERTY = 'value'
 const LOGIN_MODE = {
   INIT: 'INIT',
   INSERTING: 'INSERTING',
 }
 
-const VALUE_MIN_LENGTH_8 = 7
-/**
- *
- * @param {Array} array
- * @param {string} compareProperty
- * @param {number} minValueLength
- *
- * in Array.reduce , compareProperty는 curr items's 대조군의 property
- * 이메일, 문장 작성 같은 예외 상황 애들을 처리 할 수 있도록
- * 개선이 필요하다
- */
-const validateInputInfo = (array, compareProperty, minValueLength) => {
-  const isValid = array.reduce((prev, curr) => {
-    let isValid =
-      !validateSpace(curr[compareProperty]) &&
-      !validateSpecial(curr[compareProperty]) &&
-      curr[compareProperty].length > minValueLength
-    return prev && isValid
-  }, true)
-  return isValid
-}
-
-const VALUE_PROPERTY = 'value'
 function LoginForm(props) {
   const { onLoginSubmit, onLoginCancel, onLoginSignUp, status } = props
   const [inputFormList, inputFormSetList] = useState({
@@ -79,6 +45,7 @@ function LoginForm(props) {
   useEffect(() => {
     validate(inputFormList.inputList)
   }, [inputFormList.inputList, inputFormList.mode])
+
   const onChange = e => {
     let value = e.target.value
     let name = e.target.name
@@ -92,6 +59,7 @@ function LoginForm(props) {
       return { ...ctx }
     })
   }
+
   const onClickLogin = () => {
     onLoginSubmit(inputFormList.isValid, inputFormList.inputList)
   }

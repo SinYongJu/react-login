@@ -1,15 +1,5 @@
 import React, { useState, createContext } from 'react'
-
-const LOGIN_AUTH = {
-  GUEST: 'guest',
-  USER: 'user',
-  ADMIN: 'admin',
-}
-export const LOGIN_STATUS = {
-  PENDING: 'pending',
-  SUCCESS: 'success',
-  FAIL: 'fail',
-}
+import { LOGIN_AUTH, LOGIN_STATUS } from '../../core/constants/login/constants'
 
 const LoginContext = createContext(null)
 
@@ -33,8 +23,6 @@ const LoginProvider = props => {
 
   const login = body => {
     console.log('loginSubmit', body)
-
-    // 여기서 api 호출 및 콜백 처리
     setloginStatus(ctx => ({
       ...ctx,
       isAuth: true,
