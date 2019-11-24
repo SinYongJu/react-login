@@ -9,7 +9,7 @@ const searchBoxInfo = {
 }
 
 function SearchWeb(props) {
-  const { result = [] } = props
+  const { result, status, onSearchFetchHandler } = props
   const [searchWebState, setSearchWebState] = useState({
     box: { ...searchBoxInfo },
   })
@@ -21,10 +21,19 @@ function SearchWeb(props) {
       return { ...ctx }
     })
   }
+  const getSearchKeyword = () => searchWebState.box.value
+
+  const getSearchResult = () => {
+    onSearchFetchHandler(getSearchKeyword())
+  }
   return (
     <div>
-      <SearchBox {...searchWebState.box} onChange={onChange} />
-      <SearchResult result={result} />
+      <SearchBox
+        {...searchWebState.box}
+        onChange={onChange}
+        onClick={getSearchResult}
+      />
+      <SearchResult result={result} status={status} />
     </div>
   )
 }

@@ -7,6 +7,7 @@ import PropTypes from 'prop-types'
 //   SEARCH_RESULT
 // } from "../../constants/search_api";
 import { Link } from 'react-router-dom'
+import { SEARCH_STATUS } from '../context/SearchContext'
 
 const SearchListItem = props => {
   const {
@@ -30,15 +31,16 @@ const SearchListItem = props => {
 
 function SeachResult(props) {
   const { result, status, ...rest } = props
-  //   if (status === SEARCH_INIT) {
-  //     return null
-  //   }
-  //   if (status === SEARCH_PENDING) {
-  //     return <p>...loading</p>
-  //   }
-  //   if (status === SEARCH_RESULT && result.length === 0) {
-  //     return <p>검색 결과가 없습니다</p>
-  //   }
+  if (status === SEARCH_STATUS.INIT) {
+    return null
+  }
+  if (status === SEARCH_STATUS.RESULT && result.length === 0) {
+    return <p>검색 결과가 없습니다</p>
+  }
+
+  if (status === SEARCH_STATUS.PENDING) {
+    return <p>...loading</p>
+  }
   return (
     <ul className="search_result_list">
       {result.map((item, index) => (

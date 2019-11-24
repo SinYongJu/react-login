@@ -6,6 +6,7 @@ import { LoginProvider } from '../../components/context/LoginContext'
 import PrivateRoute from './PrivateRoute'
 import Header from '../../components/organisms/Header'
 import SearchPage from '../../components/pages/SearchPage'
+import { SearchProvider } from '../../components/context/SearchContext'
 
 const Home = () => (
   <div>
@@ -24,8 +25,9 @@ function AppRouter(props) {
           <Route path="/" exact {...rest} component={Home} />
           <Route path="/login" {...rest} component={LoginPage} />
           {/* <PrivateRoute> */}
-          <Route path="/Search" {...rest} component={SearchPage} />
-          {/* </PrivateRoute> */}
+          <SearchProvider>
+            <Route path="/Search" {...rest} component={SearchPage} />
+          </SearchProvider>
           <Route>
             <div>404 not Found</div>
           </Route>
