@@ -1,55 +1,60 @@
 import React, { useState, useEffect } from 'react'
 import InputInfo from '../molecules/InputInfo'
 import Button from '../atoms/Button'
-import { validateInputInfo } from '../../util/validate'
+import { validateInputInfo, VALIDATION_TYPE } from '../../util/validate'
+
 const inputTextsList = [
   {
     name: 'title',
     title: 'title',
-    value: '12341234',
+    value: '',
+    validate: [VALIDATION_TYPE.SPETIAL_FIRST_CHAR],
+    isValid: false,
   },
   {
     name: 'contents',
     title: 'contents',
-    value: '12341234',
+    value: '',
+    validate: [VALIDATION_TYPE.SPETIAL_FIRST_CHAR],
+    isValid: false,
   },
 ]
 const VALUE_MIN_LENGTH_8 = 7
-const VALUE_PROPERTY = 'value'
+
 function EditWeb(props) {
-  const {
-    id,
-    onClickEdit,
-    target,
-    onEditCancel,
-    onEditSumbitHandler,
-    ...rest
-  } = props
+  const { id, onClickEdit, target, onClickCancel, ...rest } = props
   const [editInputList, setEditInputList] = useState({
     inputList: inputTextsList,
     isValid: false,
+    target: null,
   })
-  const validate = array => {
-    setEditInputList(ctx => ({
-      ...ctx,
-      isValid: validateInputInfo(array, VALUE_PROPERTY, VALUE_MIN_LENGTH_8),
-    }))
+  const validate = () => {
+    setEditInputList(ctx => {
+      let isValid = ctx.inputList.reduce((prev, curr, index) => {
+        ctx.inputList[index].isValid = validateInputInfo(
+          curr.value,
+          curr.validate,
+          VALUE_MIN_LENGTH_8,
+        )
+        return prev && ctx.inputList[index].isValid
+      }, true)
+      return {
+        ...ctx,
+        isValid,
+      }
+    })
   }
   useEffect(() => {
-    console.log('sdsds')
-    validate(editInputList.inputList)
+    validate()
   }, [editInputList.inputList])
 
   const onChange = e => {
     let value = e.target.value
     let name = e.target.name
     setEditInputList(ctx => {
-      //   if (ctx.mode === LOGIN_MODE.INIT) {
-      //     ctx.mode = LOGIN_MODE.INSERTING
-      //   }
       const result = ctx.inputList.findIndex(item => item.name === name)
       ctx.inputList[result].value = value
-      validate(ctx.inputList)
+      validate()
       return { ...ctx }
     })
   }
@@ -74,10 +79,9 @@ function EditWeb(props) {
       let { name, value } = curr
       return Object.assign(prev, { [name]: value })
     }, {})
-    console.log(result)
     const { contents, title } = result
     return {
-      id: editInputList.target.id,
+      id: editInputList.target && editInputList.target.id,
       body: {
         datetime: new Date(
           new Date().toString().split('GMT')[0] + ' UTC',
@@ -90,11 +94,15 @@ function EditWeb(props) {
   }
 
   const onClickSubmit = () => {
-    // onEditSumbitHandler()
+    onClickEdit(createPostBody())
   }
   return (
     <div>
-      <strong>id : {id}</strong>
+      {target ? (
+        <strong>id : {target.id} </strong>
+      ) : (
+        <strong>Create your post</strong>
+      )}
       {editInputList.inputList &&
         editInputList.inputList.map((input, index) => {
           let id = input.name + 'Input'
@@ -110,8 +118,7 @@ function EditWeb(props) {
       <Button isDisabled={!editInputList.isValid} onClick={onClickSubmit}>
         Submit
       </Button>
-      <Button onClick={onEditCancel}>sign up</Button>
-      <Button onClick={() => console.log(createPostBody())}>테숱후</Button>
+      <Button onClick={onClickCancel}>Cancel</Button>
     </div>
   )
 }

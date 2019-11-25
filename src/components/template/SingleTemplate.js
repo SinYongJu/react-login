@@ -1,5 +1,5 @@
 import React from 'react'
-
+import './SingleTemplate.scss'
 function SingleTemplate(props) {
   const { contents } = props
   const { header, body } = contents

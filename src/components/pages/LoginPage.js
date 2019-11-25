@@ -6,15 +6,14 @@ import { LoginContext } from '../context/LoginContext'
 import { useHistory } from 'react-router-dom'
 
 function LoginPage(props) {
-  const { login, getLoginStatus } = useContext(LoginContext)
+  const { signIn, getLoginStatus } = useContext(LoginContext)
   const history = useHistory()
-  const onLoginSubmit = (isPossible, body) => {
+  const onLoginSubmit = body => {
     console.log('click onLoginSubmit')
-    return isPossible && login(body)
+    return signIn(body)
   }
-  const onLoginSignUp = isPossible => {
+  const onLoginSignUp = () => {
     console.log('click onLoginSignUp')
-    // return isPossible && Login()
   }
   const onLoginCancel = () => {
     console.log('click onLoginCancel')

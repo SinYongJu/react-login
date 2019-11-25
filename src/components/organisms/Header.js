@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import Button from '../atoms/Button'
 import { LoginContext } from '../context/LoginContext'
 function Header(props) {
-  const { logout, isLogin, getLoginStatus } = useContext(LoginContext)
+  const { signOut, isLogin, getLoginStatus } = useContext(LoginContext)
   const [headerStatus, setHeaderStatus] = useState({})
   useEffect(() => {
     setHeaderStatus(ctx => ({
@@ -16,23 +16,23 @@ function Header(props) {
       <h1>REACT PRAC</h1>
       <ul>
         <li>
-          <Link to="/">home</Link>
+          <Link to="/">Home</Link>
         </li>
         <li>
-          <Link to="/login">login</Link>
+          <Link to="/login">Login</Link>
         </li>
         <li>
-          <Link to="/search">search</Link>
+          <Link to="/search">Search</Link>
         </li>
         <li>
-          <Link to="/edit">Edit</Link>
+          <Link to="/create">Create</Link>
         </li>
       </ul>
       <>
         {headerStatus.status ? (
           <div>
             STATUS : {getLoginStatus()}
-            <Button onClick={e => logout()}>Logout</Button>
+            <Button onClick={signOut}>Logout</Button>
           </div>
         ) : (
           ''

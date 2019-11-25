@@ -1,13 +1,14 @@
 import React from 'react'
 
 function InputText(props) {
-  const { id, value, name, onChange } = props
+  const { id, value, name, onChange, placeholder } = props
   return (
     <input
       type="text"
       id={id}
       className="inp_g"
       name={name}
+      placeholder={placeholder}
       value={value}
       onChange={onChange}
     />

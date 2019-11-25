@@ -13,7 +13,7 @@ const SearchBox = props => {
       <label htmlFor={id}>{title}</label>
       <div className="tf_comm">
         <InputText id={id} {...rest} />
-        <Button onClick={onClick} />
+        <Button onClick={onClick}>SEARCH</Button>
       </div>
     </div>
   )
@@ -36,7 +36,6 @@ SearchBox.defaultProps = {
   placeholder: 'search Keyword',
   value: '',
   themeClass: BUTTON_THEME.RED,
-  text: 'Search',
   onChange: () => {
     console.log('insert yout onChange eventListener')
   },

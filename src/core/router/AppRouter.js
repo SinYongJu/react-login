@@ -30,7 +30,7 @@ function AppRouter(props) {
               <SearchPage {...rest} />
             </SearchProvider>
           </Route>
-          <Route path={['/edit/:mode/:id', '/edit/:mode', '/edit']}>
+          <Route path={['/edit/:mode/:id', '/edit/:mode', '/create']}>
             <EditProvider>
               <EditPage {...rest} />
             </EditProvider>

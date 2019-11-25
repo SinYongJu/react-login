@@ -1,28 +1,33 @@
 import React, { useState, useEffect } from 'react'
 import InputInfo from '../molecules/InputInfo'
 import Button from '../atoms/Button'
-import { validateInputInfo } from '../../util/validate'
+import { validateInputInfo, VALIDATION_TYPE } from '../../util/validate'
 
-const inputTextsList = [
+const logininputTextsList = [
   {
-    name: 'userId',
-    title: 'id',
-    value: '12341234',
+    name: 'email',
+    title: 'email',
+    value: 'test@test.com',
+    validate: [
+      VALIDATION_TYPE.SPACE,
+      VALIDATION_TYPE.SPETIAL_FIRST_CHAR,
+      VALIDATION_TYPE.EMAIL,
+    ],
+    placeholder: 'test@test.com',
+    isValid: false,
+    error: '이메일의 형식으로 작성해 주세요. test@test.com',
   },
   {
     name: 'password',
     title: 'password',
-    value: '12341234',
-  },
-  {
-    name: 'email',
-    title: 'email',
-    value: '12341234',
+    value: '12345678',
+    validate: [VALIDATION_TYPE.SPACE, VALIDATION_TYPE.SPETIAL_CHAR],
+    isValid: false,
+    error: '8자 이상 ,특수 문자, 공백이 없도록 작성해주세요',
   },
 ]
 
 const VALUE_MIN_LENGTH_8 = 7
-const VALUE_PROPERTY = 'value'
 const LOGIN_MODE = {
   INIT: 'INIT',
   INSERTING: 'INSERTING',
@@ -30,38 +35,63 @@ const LOGIN_MODE = {
 
 function LoginForm(props) {
   const { onLoginSubmit, onLoginCancel, onLoginSignUp, status } = props
-  const [inputFormList, inputFormSetList] = useState({
-    inputList: inputTextsList,
+  const [inputFormList, setInputFormList] = useState({
+    inputList: logininputTextsList,
     isValid: true,
     mode: LOGIN_MODE.INIT,
   })
 
-  const validate = array => {
-    inputFormSetList(ctx => ({
-      ...ctx,
-      isValid: validateInputInfo(array, VALUE_PROPERTY, VALUE_MIN_LENGTH_8),
-    }))
+  const validate = () => {
+    setInputFormList(ctx => {
+      let isValid = ctx.inputList.reduce((prev, curr, index) => {
+        ctx.inputList[index].isValid = validateInputInfo(
+          curr.value,
+          curr.validate,
+          VALUE_MIN_LENGTH_8,
+        )
+        return prev && ctx.inputList[index].isValid
+      }, true)
+      return {
+        ...ctx,
+        isValid,
+      }
+    })
   }
   useEffect(() => {
-    validate(inputFormList.inputList)
+    validate()
   }, [inputFormList.inputList, inputFormList.mode])
 
   const onChange = e => {
     let value = e.target.value
     let name = e.target.name
-    inputFormSetList(ctx => {
+    setInputFormList(ctx => {
       if (ctx.mode === LOGIN_MODE.INIT) {
         ctx.mode = LOGIN_MODE.INSERTING
       }
       const result = ctx.inputList.findIndex(item => item.name === name)
       ctx.inputList[result].value = value
-      validate(ctx.inputList)
+      validate()
       return { ...ctx }
     })
   }
 
   const onClickLogin = () => {
-    onLoginSubmit(inputFormList.isValid, inputFormList.inputList)
+    onLoginSubmit(createPostBody())
+  }
+
+  const createPostBody = () => {
+    const result = inputFormList.inputList.reduce((prev, curr) => {
+      let { name, value } = curr
+      return Object.assign(prev, { [name]: value })
+    }, {})
+    const { id, password, email } = result
+    return {
+      body: {
+        id,
+        password,
+        email,
+      },
+    }
   }
   return (
     <div className={'LoginForm'}>
@@ -73,6 +103,7 @@ function LoginForm(props) {
             <InputInfo
               key={`${id}_${index}`}
               id={id}
+              status={inputFormList.mode}
               {...input}
               onChange={onChange}
             ></InputInfo>

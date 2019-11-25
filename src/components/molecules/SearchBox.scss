@@ -1,0 +1,27 @@
+.box_search{
+    label{
+        display:block;
+        font-size:12px;
+        font-weight: bold;
+        text-transform: uppercase
+    }
+    .tf_comm{
+        padding-right:90px;
+        position:relative;
+        input{
+            height:42px;
+            padding: 0 10px;
+            font-size: 16px;
+            border: 1px solid #bbb;
+            box-sizing: border-box;
+        }
+        button{
+            position:absolute;
+            bottom:0;
+            right:0;
+            width:80px;
+            height:44px;
+        }
+    }
+    
+}
