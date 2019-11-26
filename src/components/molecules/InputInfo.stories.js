@@ -15,7 +15,7 @@ const stories = storiesOf('Components|molecules/InputInfo', module)
 
 // 아래에서 stories에 직접 추가할 데코레이터
 const InputInfoDecorator = story => (
-  <div style={{ margin: '10px', width: '300px' }}>{story()}</div>
+  <div style={{ margin: '10px' }}>{story()}</div>
 )
 stories.addDecorator(InputInfoDecorator)
 stories.addDecorator(withKnobs)
@@ -34,6 +34,8 @@ stories.add(
       id={text('id', 'insert your id')}
       value={text('value', 'insert your value')}
       title={text('title', 'insert your title')}
+      isValid={boolean('isValid', true)}
+      error={text('error', 'error texts texts texts')}
       onChange={actions.onChange}
     ></InputInfo>
   ),

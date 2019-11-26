@@ -7,9 +7,7 @@ import Button, { BUTTON_THEME } from './Button'
 
 const stories = storiesOf('Components|Atoms/Button', module)
 
-const storyDecorator = story => (
-  <div style={{ margin: '10px', width: '300px' }}>{story()}</div>
-)
+const storyDecorator = story => <div style={{ margin: '10px' }}>{story()}</div>
 
 stories.addDecorator(storyDecorator)
 stories.addDecorator(withKnobs)
@@ -20,7 +18,7 @@ stories.add(
     return (
       <Button
         themeClass={select('button style', BUTTON_THEME)}
-        idDisabled={boolean('idDisabled', false)}
+        isDisabled={boolean('isDisabled', false)}
         onClick={action('onClick', console.log('onClick Event'))}
       >
         {text('buttonText', 'button')}

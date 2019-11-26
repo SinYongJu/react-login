@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import SearchBox from '../molecules/SearchBox'
 import SearchResult from '../molecules/SearchResult'
 
@@ -13,7 +13,6 @@ function SearchWeb(props) {
   const [searchWebState, setSearchWebState] = useState({
     box: { ...searchBoxInfo },
   })
-  useEffect(() => {}, [])
   const onChange = e => {
     let value = e.target.value
     setSearchWebState(ctx => {
@@ -22,10 +21,7 @@ function SearchWeb(props) {
     })
   }
   const getSearchKeyword = () => searchWebState.box.value
-
-  const getSearchResult = () => {
-    onSearchFetchHandler(getSearchKeyword())
-  }
+  const getSearchResult = () => onSearchFetchHandler(getSearchKeyword())
   return (
     <div>
       <SearchBox

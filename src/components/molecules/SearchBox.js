@@ -4,16 +4,15 @@ import Button, { BUTTON_THEME } from '../atoms/Button'
 import './SearchBox.scss'
 import InputText from '../atoms/InputText'
 
-const BUTTON_TEXT = '검색'
+const BUTTON_TEXT = 'SEARCH'
 const SearchBox = props => {
   const { id, title, onClick, ...rest } = props
-
   return (
     <div className="box_search">
       <label htmlFor={id}>{title}</label>
       <div className="tf_comm">
         <InputText id={id} {...rest} />
-        <Button onClick={onClick}>SEARCH</Button>
+        <Button onClick={onClick}>{BUTTON_TEXT}</Button>
       </div>
     </div>
   )

@@ -16,8 +16,7 @@ SingleTemplate.defaultProps = {
     header: (
       <div
         style={{
-          maxWidth: 740,
-          height: '50px',
+          height: 50,
           backgroundColor: '#eee',
           margin: '5px auto',
         }}
@@ -28,8 +27,7 @@ SingleTemplate.defaultProps = {
     body: (
       <div
         style={{
-          maxWidth: 740,
-          height: '740px',
+          height: 740,
           backgroundColor: '#eee',
           margin: '5px auto',
         }}

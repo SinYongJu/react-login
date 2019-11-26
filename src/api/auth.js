@@ -1,5 +1,5 @@
 import { setCookie, getCookie, deleteCookie } from '../util/cookie'
-import { fetchCommon, fetchCustomPOST } from '../util/fetch'
+import { fetchCustomPOST } from '../util/fetch'
 import decode from 'jwt-decode'
 
 export const URL = 'http://localhost:8080'

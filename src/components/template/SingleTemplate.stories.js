@@ -22,9 +22,7 @@ const SingleTemplateInfo = {
 
 // 아래에서 stories에 직접 추가할 데코레이터
 const SingleTemplateDecorator = story => (
-  <div style={{ margin: '10px', width: text('divWidth', '800px') }}>
-    {story()}
-  </div>
+  <div style={{ margin: '10px' }}>{story()}</div>
 )
 // 아래에서 stories에 직접 추가할 파라미터
 const SingleTemplateBackground = {

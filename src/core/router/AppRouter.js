@@ -9,6 +9,7 @@ import SearchPage from '../../components/pages/SearchPage'
 import { SearchProvider } from '../../components/context/SearchContext'
 import { EditProvider } from '../../components/context/EditContext'
 import EditPage from '../../components/pages/EditPage'
+import SamplePage from '../../components/pages/SamplePage'
 const Home = () => (
   <div>
     <h2>home</h2>
@@ -23,18 +24,18 @@ function AppRouter(props) {
       <Router>
         <Header />
         <Switch>
-          <Route path="/" exact {...rest} component={Home} />
+          <Route path="/" exact {...rest} component={SamplePage} />
           <Route path="/login" {...rest} component={LoginPage} />
           <Route path="/search">
             <SearchProvider>
               <SearchPage {...rest} />
             </SearchProvider>
           </Route>
-          <Route path={['/edit/:mode/:id', '/edit/:mode', '/create']}>
+          <PrivateRoute path={['/edit/:mode/:id', '/edit/:mode', '/create']}>
             <EditProvider>
               <EditPage {...rest} />
             </EditProvider>
-          </Route>
+          </PrivateRoute>
           <Route>
             <div>404 not Found</div>
           </Route>
