@@ -1,0 +1,26 @@
+.ScrollProgress{
+    position : fixed;
+    bottom : 100px;
+    right:200px;
+    transform: translate(-50%, -50%);
+    li{
+        margin:10px 0;
+        font-size:1px;
+        line-height:0;
+        width:4px;
+        height:4px;
+        border-radius:50%;
+        border:1px solid #000;
+        background-color: red;
+        color:transparent;
+        &.on{
+            width:auto;
+            height:auto;
+            border-radius:0;
+            font-size:14px;
+            color:#000;
+            line-height:16px;
+        }        
+    }
+
+}

@@ -10,6 +10,7 @@ import { SearchProvider } from '../../components/context/SearchContext'
 import { EditProvider } from '../../components/context/EditContext'
 import EditPage from '../../components/pages/EditPage'
 import SamplePage from '../../components/pages/SamplePage'
+import { UiProvider } from '../../components/context/UiContext'
 const Home = () => (
   <div>
     <h2>home</h2>
@@ -20,31 +21,33 @@ const Home = () => (
 function AppRouter(props) {
   const { children, ...rest } = props
   return (
-    <LoginProvider>
-      <Router>
-        <Header />
-        <Switch>
-          <Route path="/" exact {...rest} component={SamplePage} />
-          <Route path="/login" {...rest} component={LoginPage} />
-          <Route path="/search">
-            <SearchProvider>
-              <SearchPage {...rest} />
-            </SearchProvider>
-          </Route>
-          <PrivateRoute path={['/edit/:mode/:id', '/edit/:mode', '/create']}>
-            <EditProvider>
-              <EditPage {...rest} />
-            </EditProvider>
-          </PrivateRoute>
-          <Route>
-            <div>404 not Found</div>
-          </Route>
-        </Switch>
-        <footer>
-          <h2>FOOTER</h2>
-        </footer>
-      </Router>
-    </LoginProvider>
+    <UiProvider>
+      <LoginProvider>
+        <Router>
+          <Header />
+          <Switch>
+            <Route path="/" exact {...rest} component={SamplePage} />
+            <Route path="/login" {...rest} component={LoginPage} />
+            <Route path="/search">
+              <SearchProvider>
+                <SearchPage {...rest} />
+              </SearchProvider>
+            </Route>
+            <PrivateRoute path={['/edit/:mode/:id', '/edit/:mode', '/create']}>
+              <EditProvider>
+                <EditPage {...rest} />
+              </EditProvider>
+            </PrivateRoute>
+            <Route>
+              <div>404 not Found</div>
+            </Route>
+          </Switch>
+          <footer>
+            <h2>FOOTER</h2>
+          </footer>
+        </Router>
+      </LoginProvider>
+    </UiProvider>
   )
 }
 

@@ -2,11 +2,12 @@ import React from 'react'
 import './SingleTemplate.scss'
 function SingleTemplate(props) {
   const { contents } = props
-  const { header, body } = contents
+  const { header, body, progress } = contents
   return (
     <div className="single_layout">
       {header}
       {body}
+      {progress}
     </div>
   )
 }
